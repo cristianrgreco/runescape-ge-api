@@ -1,13 +1,13 @@
 const {fetchItem} = require('./api')
 const {getFixture} = require('./fixtures')
 
-test('fetches an item from the api and persists to cache', async () => {
-  const expected = {
-    name: 'Santa hat',
-    value: '644,168,876',
-    imageUrl: 'https://vignette.wikia.nocookie.net/runescape2/images/4/47/Santa_hat.png/revision/latest?cb=20160502072108'
-  }
+const expected = {
+  name: 'Santa hat',
+  value: '644,168,876',
+  imageUrl: 'https://vignette.wikia.nocookie.net/runescape2/images/4/47/Santa_hat.png/revision/latest?cb=20160502072108'
+}
 
+test('fetches an item from the api and persists to cache', async () => {
   const mockCache = {
     get: jest.fn(() => Promise.resolve(null)),
     set: jest.fn(() => Promise.resolve())
@@ -23,12 +23,6 @@ test('fetches an item from the api and persists to cache', async () => {
 })
 
 test('fetches an item from the cache', async () => {
-  const expected = {
-    name: 'Santa hat',
-    value: '644,168,876',
-    imageUrl: 'https://vignette.wikia.nocookie.net/runescape2/images/4/47/Santa_hat.png/revision/latest?cb=20160502072108'
-  }
-
   const mockCache = {
     get: jest.fn(itemName => {
       if (itemName === 'santa hat') {
