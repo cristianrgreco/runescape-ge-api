@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "jsdom": "^11.6.2",
-    "node-fetch": "^2.0.0"
+    "node-fetch": "^2.0.0",
+    "redis": "^2.8.0"
   }
 }
