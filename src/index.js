@@ -11,15 +11,12 @@ const redisCache = new RedisCache(redis, conf.redis.host, conf.redis.port)
 server.route({
   method: 'GET',
   path: '/items/{itemName}',
-  handler: async (request, reply) => {
-    const itemName = request.params.itemName
-    const item = await fetchItem(fetch, redisCache, itemName)
-    reply(item)
-  }
+  handler: request => fetchItem(fetch, redisCache, request.params.itemName)
 })
 
 server.start(err => {
   if (err) {
     throw err
   }
+  console.log(`Listening on port ${conf.server.port}`)
 })

@@ -2,6 +2,8 @@ app:
   build: .
   links:
     - redis
+  ports:
+    - 3000:3000
   environment:
     - HOST=localhost
     - PORT=3000
