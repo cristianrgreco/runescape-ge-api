@@ -1,4 +1,4 @@
-const {fetchItem} = require('./api')
+const Api = require('./api')
 const {getFixture} = require('./fixtures')
 
 const expected = {
@@ -14,7 +14,8 @@ test('fetches an item from the api and persists to cache', async () => {
   }
   const mockFetch = jest.fn(() => Promise.resolve({text: jest.fn(() => Promise.resolve(getFixture('santa-hat.html')))}))
 
-  const actual = await fetchItem(mockFetch, mockCache, 'santa hat')
+  const api = new Api(mockFetch, mockCache)
+  const actual = await api.fetchItem('santa hat')
 
   expect(actual).toEqual(expected)
   expect(mockCache.get).toHaveBeenCalledWith('santa hat')
@@ -33,7 +34,8 @@ test('fetches an item from the cache', async () => {
   }
   const mockFetch = jest.fn()
 
-  const actual = await fetchItem(mockFetch, mockCache, 'santa hat')
+  const api = new Api(mockFetch, mockCache)
+  const actual = await api.fetchItem('santa hat')
 
   expect(actual).toEqual(expected)
   expect(mockCache.get).toHaveBeenCalledWith('santa hat')
@@ -45,7 +47,8 @@ test('returns null if item cannot be found', async () => {
   const mockCache = {get: jest.fn(() => Promise.resolve(null))}
   const mockFetch = jest.fn(() => Promise.resolve({text: jest.fn(() => Promise.resolve(getFixture('not-found.html')))}))
 
-  const actual = await fetchItem(mockFetch, mockCache, 'santa hatt')
+  const api = new Api(mockFetch, mockCache)
+  const actual = await api.fetchItem('santa hatt')
 
   expect(actual).toBeNull()
 })
