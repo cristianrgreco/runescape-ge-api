@@ -40,3 +40,12 @@ test('fetches an item from the cache', async () => {
   expect(mockCache.set).not.toHaveBeenCalled()
   expect(mockFetch).not.toHaveBeenCalled()
 })
+
+test('returns null if item cannot be found', async () => {
+  const mockCache = {get: jest.fn(() => Promise.resolve(null))}
+  const mockFetch = jest.fn(() => Promise.resolve({text: jest.fn(() => Promise.resolve(getFixture('not-found.html')))}))
+
+  const actual = await fetchItem(mockFetch, mockCache, 'santa hatt')
+
+  expect(actual).toBeNull()
+})
