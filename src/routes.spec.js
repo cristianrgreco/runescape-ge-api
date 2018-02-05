@@ -11,7 +11,7 @@ test('returns the item', async () => {
   expect(actual).toEqual(expected)
 })
 
-it('throws if the item cannot be found', async () => {
+test('throws if the item cannot be found', async () => {
   const mockApi = {fetchItem: jest.fn(() => Promise.resolve(null))}
   const routes = new Routes(mockApi)
 
