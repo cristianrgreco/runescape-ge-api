@@ -11,6 +11,10 @@ const fetchItem = async (fetch, cache, itemName) => {
   const dom = new JSDOM(await response.text())
   const wikiTable = dom.window.document.querySelector('.infobox')
 
+  if (wikiTable === null) {
+    return null
+  }
+
   const result = {
     name: getText(wikiTable, 'caption'),
     value: getText(wikiTable, '.infobox-quantity-replace'),
