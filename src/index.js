@@ -6,7 +6,7 @@ const conf = require('./conf')
 const RedisCache = require('./redis-cache')
 const {fetchItem} = require('./api')
 
-const server = new Hapi.Server({port: conf.server.port, host: conf.server.host})
+const server = new Hapi.Server({port: conf.server.port, host: conf.server.host, routes: {cors: true}})
 const redisCache = new RedisCache(redis, conf.redis.host, conf.redis.port)
 
 server.route({
