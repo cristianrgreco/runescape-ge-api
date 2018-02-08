@@ -19,7 +19,7 @@ test('fetches an item from the api and persists to cache', async () => {
 
   expect(actual).toEqual(expected)
   expect(mockCache.get).toHaveBeenCalledWith('santa hat')
-  expect(mockCache.set).toHaveBeenCalledWith('santa hat', JSON.stringify(expected))
+  expect(mockCache.set).toHaveBeenCalledWith('santa hat', JSON.stringify(expected), 'EX', 60)
   expect(mockFetch).toHaveBeenCalledWith('http://runescape.wikia.com/wiki/santa%20hat')
 })
 

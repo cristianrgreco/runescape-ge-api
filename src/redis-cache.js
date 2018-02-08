@@ -14,9 +14,9 @@ class RedisCache {
     })
   }
 
-  set (key, value) {
+  set (key, value, ...options) {
     return new Promise((resolve, reject) => {
-      this.client.set(key, value, (err, reply) => {
+      this.client.set(key, value, ...options, (err, reply) => {
         if (err) {
           return reject(err)
         }

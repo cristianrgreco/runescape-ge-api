@@ -1,5 +1,5 @@
 const {JSDOM} = require('jsdom')
-const {apiUrl} = require('./conf')
+const {apiUrl, cacheExpirationSeconds} = require('./conf')
 
 class Api {
   constructor (fetch, cache) {
@@ -27,7 +27,7 @@ class Api {
       imageUrl: getAttribute(wikiTable, '.infobox-image img', 'src')
     }
 
-    await this.cache.set(itemName, JSON.stringify(result))
+    await this.cache.set(itemName, JSON.stringify(result), 'EX', cacheExpirationSeconds)
 
     return result
   }
